@@ -1,39 +1,42 @@
 local C_Engraving = {};
 
-local RuneFrameControlButton = CreateFrame("CheckButton", "RuneFrameControlButton", CharacterHandsSlot)
-RuneFrameControlButton:SetSize(32, 32)
-RuneFrameControlButton:SetPoint("BOTTOMRIGHT", CharacterHandsSlot, "TOPRIGHT", 0, 3)
 
-RuneFrameControlButton:SetNormalTexture("Interface\\Icons\\INV_Misc_Rune_06")
-RuneFrameControlButton:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
-RuneFrameControlButton:SetCheckedTexture("Interface\\Buttons\\CheckButtonHilight", "ADD")
 
-RuneFrameControlButton:SetScript("OnLoad", RuneFrameControlButton_OnLoad)
-RuneFrameControlButton:SetScript("OnShow", RuneFrameControlButton_OnShow)
-
-function ToggleEngravingFrame()
+local Wrath_Runes = {};
+function Wrath_Runes.ToggleEngravingFrame()
     if not C_Engraving.IsEngravingEnabled() then
         return;
     end
 
     if ( EngravingFrame and EngravingFrame:IsShown() ) then
         EngravingFrame:Hide();
-        print('ok')
+        RuneFrameControlButton:SetChecked(false);
     else
-        --[[if ( not C_AddOns.IsAddOnLoaded("Warlog_Prestige") ) then
-            UIParentLoadAddOn("Warlog_Prestige");
-        end]]
+        if ( not IsAddOnLoaded("Wrath_Runes") ) then
+            LoadAddOn("Wrath_Runes");
+        end
 
         EngravingFrame:Show();
+        RuneFrameControlButton:SetChecked(true);
     end
 end
 
-function RuneFrameControlButton_OnClick(self)
-    ToggleEngravingFrame();
+function Wrath_Runes.GenerateRuneControlButton()
+    local RuneFrameControlButton = CreateFrame("CheckButton", "RuneFrameControlButton", CharacterHandsSlot)
+    RuneFrameControlButton:SetSize(32, 32)
+    RuneFrameControlButton:SetPoint("BOTTOMRIGHT", CharacterHandsSlot, "TOPRIGHT", 0, 3)
+
+    RuneFrameControlButton:SetNormalTexture("Interface\\Icons\\INV_Misc_Rune_06")
+    RuneFrameControlButton:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+    RuneFrameControlButton:SetCheckedTexture("Interface\\Buttons\\CheckButtonHilight", "ADD")
+
+    RuneFrameControlButton:SetScript("OnLoad", RuneFrameControlButton_OnLoad)
+    RuneFrameControlButton:SetScript("OnShow", RuneFrameControlButton_OnShow)
+    RuneFrameControlButton:SetScript("OnClick", Wrath_Runes.ToggleEngravingFrame)
+
+    PaperDollFrame:SetScript("OnHide", Wrath_Runes.ToggleEngravingFrame)
 end
-
-RuneFrameControlButton:SetScript("OnClick", RuneFrameControlButton_OnClick)
-
+Wrath_Runes.GenerateRuneControlButton()
 
 RuneFrameControlButton:SetScript("OnEnter", function(self)
     GameTooltip:SetOwner(self,"ANCHOR_RIGHT")
@@ -90,6 +93,93 @@ function C_Engraving.GetRuneCategories(shouldFilter, ownedOnly)
 
     return categories
 end
+
+--[[ Method missing ]]--
+function C_Engraving.AddCategoryFilter(category)
+end
+
+function C_Engraving.AddExclusiveCategoryFilter(category)
+end
+
+function C_Engraving.CastRune(skillLineAbilityID)
+end
+
+function C_Engraving.ClearAllCategoryFilters()
+end
+
+function C_Engraving.ClearCategoryFilter(category)
+end
+
+function C_Engraving.ClearExclusiveCategoryFilter()
+end
+
+function C_Engraving.EnableEquippedFilter(enabled)
+end
+
+function C_Engraving.GetCurrentRuneCast()
+end
+
+function C_Engraving.GetEngravingModeEnabled()
+end
+
+function C_Engraving.GetExclusiveCategoryFilter()
+end
+
+function C_Engraving.GetNumRunesKnown(equipmentSlot)
+end
+
+function C_Engraving.GetRuneForEquipmentSlot(equipmentSlot)
+end
+
+function C_Engraving.GetRuneForInventorySlot(containerIndex, slotIndex)
+end
+
+function C_Engraving.GetRunesForCategory(category, ownedOnly)
+end
+
+function C_Engraving.IsEquipmentSlotEngravable(equipmentSlot)
+end
+
+function C_Engraving.IsEquippedFilterEnabled()
+end
+
+function C_Engraving.IsInventorySlotEngravable(containerIndex, slotIndex)
+end
+
+function C_Engraving.IsInventorySlotEngravableByCurrentRuneCast(containerIndex, slotIndex)
+end
+
+function C_Engraving.IsKnownRuneSpell(spellID)
+end
+
+function C_Engraving.IsRuneEquipped(skillLineAbilityID)
+end
+
+function C_Engraving.RefreshRunesList()
+end
+
+function C_Engraving.SetEngravingModeEnabled(enabled)
+end
+
+function  C_Engraving.EngravingModeChanged(enabled)
+end
+
+function  C_Engraving.EngravingTargetingModeChanged(enabled)
+end
+
+function  C_Engraving.RuneUpdated(rune)
+end
+
+--[[ Not sure for this ]]--
+local EngravingData = {
+    skillLineAbilityID = 0,
+    itemEnchantmentID = 0,
+    name = "",
+    iconTexture = 0,
+    equipmentSlot = 0,
+    level = 0,
+    learnedAbilitySpellIDs = {}
+}
 
 RUNE_BUTTON_HEIGHT = 40;
 RUNE_HEADER_BUTTON_HEIGHT = 23;

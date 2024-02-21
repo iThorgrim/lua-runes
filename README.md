@@ -4,7 +4,7 @@
 This interface is designed to empower administrators in implementing the Rune system available in Classic: Season of Discovery. Currently, it serves as a "visual" addon with the ultimate goal of introducing several key features to make the system fully functional.
 
 ## Preview
-![image](https://github.com/vaiocti/lua-runes/assets/125808072/96d771bf-e76f-4fc7-bd89-32076f27a2b4)
+<img src="https://www.zupimages.net/up/24/08/kvrl.png" width="400" height="350"> <img src="https://www.zupimages.net/up/24/08/8mnx.png" width="400" height="350">
 
 ## Features to Implement
 1. New Crafting Profession: Rune Crafting

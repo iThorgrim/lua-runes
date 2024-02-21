@@ -1,0 +1,7 @@
+## Title: Wrath_Runes
+## Version: 1.0
+## Author: iThorgrim
+## Interface: 30300
+
+Wrath_Runes.xml
+Wrath_Runes.lua
